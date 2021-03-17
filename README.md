@@ -1,5 +1,8 @@
 Using https://thingspeak.com/ to collect data from my sensors and analyse it.
-Write more than 1 field off data to thingspeak.com
+
+Write more than 1 field of data to thingspeak.com.
+
+I have 3 fields; Temperature, Humidity, and soil moisture
 
 ### Components
 1. Arduino Wifi Rev2
