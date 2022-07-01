@@ -29,3 +29,35 @@ Arduino wiring image
 
 
 View the data [here](https://thingspeak.com/channels/1786772)
+
+
+## Next step:
+
+# Set up a DS18B20 Temperature Sensor system()
+![image2](DS18B20.jpg)
+### Wiring:
+VCC 5v to Red VCC
+VCC 5V to 5K (4.7K) Ohm pull-up resistor to Yellow Data
+Yellow Data Pin to desired Digital pin (You can put all three of these on a single digital pin.)
+Ground to Black Ground
+
+### Code:
+You need two libraries to use these temperature sensors.
+1) OneWire - Since I can't add links, Google for "GitHub PaulStoffregen/OneWire"
+2) DallasTemperature - Google for "GitHub milesburton Arduino-Temperature-Control-Library"
+
+Once all libraries are installed into your Arduino Lib folder, you can try it out:
+
+#include <OneWire.h>
+#include <DallasTemperature.h>
+OneWire oneWire(7); // Digital Pin 7
+DallasTemperature dTemp(oneWire);
+
+void setup() {
+Serial.begin(9600);
+}
+
+void loop() {
+dTemp->requestTemperatures();
+Serial.println("Temp @ Index 0: " + String(dTemp->getTempFByIndex(0))); // Get the first temperature.
+}
