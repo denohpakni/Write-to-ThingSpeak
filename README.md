@@ -2,6 +2,15 @@ Using https://thingspeak.com/ to collect data from my sensors and analyse it.
 I was using `platform io extension` on vscode.
 Write more than 1 field of data to thingspeak.com.
 
+> Then use thingspeak to send email (via IFTTT) and tweet if a threshold is passed.
+### important info
+> IFTTT, event name is "DHT11"
+
+> To get your IFTTT Webhooks key, visit https://ifttt.com/maker_webhooks, then Documentation. You have to be logged in to IFTTT.
+
+> edit your applets @ https://ifttt.com/p/username/applets/private
+
+
 I have 2 fields; Temperature and Humidity.
 
 ## Components

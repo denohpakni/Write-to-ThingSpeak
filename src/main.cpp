@@ -66,10 +66,10 @@ void loop() {
 
 // figure out the status message
   if(Temp > Humidity){
-    myStatus = String("Temp is greater than Humidity"); 
+    myStatus = String("Alaaa! Temp is greater than Humidity"); 
   }
   else{
-    myStatus = String("Temp equals Humidity");
+    myStatus = String("This thing is working ok");
   }
   
   // set the status
