@@ -2,17 +2,12 @@
 #include <dht11.h>
 #include <SPI.h>  // Communication lib
 #include <WiFiNINA.h>  // wifi lib
-#include "mySecrets.h"  // contains my secret items like wifi password
+#include "mySecrets.h"  // contains my secret items like wifi password. Same folder with 'main.ccp' file.
 #include <ThingSpeak.h>
 
 // Hardware info
-#define SENSOR_POWER 13                            // Connect the power for the soil sensor here.
-#define DHT11PIN 9
+#define DHT11PIN 2
 dht11 DHT11;
-
-// Soil Moisture variables
-const int dry = 460;
-const int wet = 239;
 
 // Network information.
 char ssid[] = SECRET_SSID;   // your network SSID (name) 
@@ -28,7 +23,6 @@ const char * myWriteAPIKey = SECRET_WRITE_APIKEY;
 // Initialize our values
 int Humidity = 0;
 int Temp = 0;
-int soilMoistureValue = 0;
 String myStatus = "";
 
 // Connect to the local Wi-Fi network
@@ -61,14 +55,6 @@ void loop() {
   Temp = (float)DHT11.temperature, 2;
   Serial.print("Temperature (C): ");
   Serial.println(Temp);  
-  
-  int sensorVal = analogRead(A0);
-  // Sensor has a range of 239 to 595
-  // We want to translate this to a scale or 0% to 100%
-  int soilMoistureValue = map(sensorVal,wet,dry,100,0); 
-  Serial.print("SoilMoisture is ");
-  Serial.print(soilMoistureValue);
-  Serial.println(" %"); 
 
   /* Write to ThingSpeak. There are up to 8 fields in a channel, allowing you to store up to 8 different
      pieces of information in a channel.  
@@ -77,14 +63,10 @@ void loop() {
   // set the fields with the values
   ThingSpeak.setField(1, Temp);
   ThingSpeak.setField(2, Humidity);
-  ThingSpeak.setField(3, soilMoistureValue);
 
 // figure out the status message
   if(Temp > Humidity){
     myStatus = String("Temp is greater than Humidity"); 
-  }
-  else if(Temp < soilMoistureValue){
-    myStatus = String("Temp is less than soilMoistureValue");
   }
   else{
     myStatus = String("Temp equals Humidity");
